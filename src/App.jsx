@@ -70,8 +70,74 @@ function App() {
       setClima("Cidade não cadastrada");
 
       setUmidade("--");
-
     }
-
   }
+
+  //Retorna a interface visual do sistema
+  return(
+
+    //Container principal da aplicação
+    <div
+    style={{
+      padding: "20px",
+      fontFamily: "Arial"
+    }}
+    >
+      {/* Título principal*/}
+      <h1>Sistema de Previsão do Tempo</h1>
+
+      {/* Campo para digitação */}
+      <input
+
+      //Tipo do campo
+      type="text"
+
+      //Texto exibido dentro da caixa
+      placeholder="Digite uma cidade"
+
+      //Valor vinculado ao estado cidade
+      value={cidade}
+
+      //Atualiza o estado qaundo o usuário digita
+      onChange={(e) =>setCidade(e.target.value)}
+      />
+
+      {/* Botão de consulta */}
+      <button
+
+      //Executa a função consultarClima
+      onClick={consultarClima}
+
+      //Define a margem à esquerda
+      style={{
+        marginLeft: "10px"
+      }}
+>
+
+  {/* Texto exibido no botão */}
+  Consultar
+
+</button>
+
+{/* Linha horizontal para separar seções */}
+<hr />
+
+{/* Exibe a cidade informada */}
+<h2>Cidade: {cidade}</h2>
+
+{/* Exibe a temperatura */}
+<h2>Cidade: {temperatura}</h2>
+
+{/* Exibe a condição climática */}
+<h2>Cidade: {clima}</h2>
+
+{/* Exibe a umidade */}
+<h2>Cidade: {umidade}</h2>
+
+    </div>
+  );
+
 }
+
+//Exporta o componente App para ser utilizado no React
+export default App;
