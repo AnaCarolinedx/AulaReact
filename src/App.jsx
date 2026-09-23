@@ -1,3 +1,6 @@
+//Importa o arquivo de estilo CSS
+import "./App.css";
+
 //Importa o hook useState da biblioteca React
 //Ele permite armazenar valores e atualizar a tela automaticamente
 import { useState } from "react"; 
@@ -18,59 +21,45 @@ function App() {
   const [umidade, setUmidade] = useState(" ");
 
   //Função executada quando o usuário clicar no botão consultar
-  function consultarClima () {
+  async function consultarClima() {
 
-    //Verifica se a cidade digitada é São Paulo
-    if (
-      cidade.toLocaleLowerCase() === "são paulo" ||
-      cidade.toLocaleLowerCase() === "são paulo" 
-    ) {
+    //Verifica se o campo está vazio
+    if (cidade === "") {
+      alert("Digite uma cidade!");
+      return;
+    }
+
+    try {
+
+      //Faz a requisição para a API
+      const resposta = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=bf0b2ce8356b57ec51f83c33c434161b&units=metric&lang=pt_br`
+      );
+
+      //Converte a resposta para JSON
+      const dados = await resposta.json();
+
+      //Verifica se a cidade foi encontrada
+      if (dados.cod !== 200) {
+        alert("Cidade não encontrada");
+        return;
+      }
+
       //Atualiza a temperatura
-      setTemperatura("24°");
+      setTemperatura(dados.main.temp + "°C");
 
       //Atualiza a condição climática
-      setClima("Ensolarado");
+      setClima(dados.weather[0].description);
 
       //Atualiza a umidade
-      setUmidade("60%");
-    }
+      setUmidade(dados.main.humidity + "%");
 
-    else if (cidade.toLocaleLowerCase() === "curitiba") {
+      } catch (erro) {
 
-      setTemperatura("17°");
+        console.log(erro);
 
-      setClima("Chuvoso");
-
-      setUmidade("85%");
-    }
-
-        else if (cidade.toLocaleLowerCase() === "Orlando") {
-
-      setTemperatura("31°");
-
-      setClima("Chuvoso");
-
-      setUmidade("80%");
-    }
-
-        else if (cidade.toLocaleLowerCase() === "Flórida") {
-
-      setTemperatura("32°");
-
-      setClima("Tempestade");
-
-      setUmidade("76%");
-    }
-
-    //Executa caso a cidade não esteja cadastrada
-    else {
-
-      setTemperatura("--");
-
-      setClima("Cidade não cadastrada");
-
-      setUmidade("--");
-    }
+        alert("Erro ao consultar a API.");
+      }
   }
 
   //Retorna a interface visual do sistema
@@ -83,8 +72,41 @@ function App() {
       fontFamily: "Arial"
     }}
     >
+
+      {/* Esporos do Mundo Invertido */}
+      <div className="upside-down-particles" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+
+        {/* NOVO: Relâmpagos */}
+        <div className="upside-down-lightning" aria-hidden="true">
+          <span className="lightning lightning-red lightning-1" />
+          <span className="lightning lightning-blue lightning-2" />
+          <span className="lightning lightning-red lightning-3" />
+          <span className="lightning lightning-blue lightning-4" />
+        </div>
+
+<div>
       {/* Título principal*/}
-      <h1>Sistema de Previsão do Tempo</h1>
+      <h1>⛈️ Sistema de Previsão do Tempo</h1>
+</div>
 
       {/* Campo para digitação */}
       <input
@@ -98,7 +120,7 @@ function App() {
       //Valor vinculado ao estado cidade
       value={cidade}
 
-      //Atualiza o estado qaundo o usuário digita
+      //Atualiza o estado quando o usuário digita
       onChange={(e) =>setCidade(e.target.value)}
       />
 
@@ -123,16 +145,16 @@ function App() {
 <hr />
 
 {/* Exibe a cidade informada */}
-<h2>Cidade: {cidade}</h2>
+<h2>🏙️ Cidade: {cidade}</h2>
 
 {/* Exibe a temperatura */}
-<h2>Cidade: {temperatura}</h2>
+<h2>🌡️ Temperatura: {temperatura}</h2>
 
 {/* Exibe a condição climática */}
-<h2>Cidade: {clima}</h2>
+<h2>⛅ Clima: {clima}</h2>
 
 {/* Exibe a umidade */}
-<h2>Cidade: {umidade}</h2>
+<h2>💧 Umidade: {umidade}</h2>
 
     </div>
   );

@@ -1,184 +1,739 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* ==========================================
+   MUNDO INVERTIDO
+   ========================================== */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+* {
+  box-sizing: border-box;
 }
 
-.hero {
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(180, 0, 20, 0.35),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(100, 0, 10, 0.25),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(120, 0, 10, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #020203,
+      #0b0204 50%,
+      #020203
+    );
+
+  color: white;
+}
+
+
+/* ==========================================
+   CONTAINER PRINCIPAL
+   Pega a primeira DIV do seu App
+   ========================================== */
+
+#root > div {
   position: relative;
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
+  width: 100%;
+  min-height: 100vh;
 
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
+  padding: 60px 30px !important;
 
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+  align-items: center;
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif !important;
+
+  overflow: hidden;
+
+  isolation: isolate;
+}
+
+
+/* ==========================================
+   NÉVOA
+   ========================================== */
+
+#root > div::before {
+  content: "";
+
+  position: fixed;
+
+  width: 150vw;
+  height: 150vh;
+
+  top: -25vh;
+  left: -25vw;
+
+  z-index: -2;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 20% 40%,
+      rgba(255, 0, 30, 0.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 75% 65%,
+      rgba(170, 0, 20, 0.14),
+      transparent 35%
+    );
+
+  filter: blur(50px);
+
+  animation: nevoa 12s ease-in-out infinite alternate;
+}
+
+
+/* ==========================================
+   VINHETA
+   ========================================== */
+
+#root > div::after {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 20%,
+      rgba(0, 0, 0, 0.35) 60%,
+      rgba(0, 0, 0, 0.92) 110%
+    );
+}
+
+
+/* ==========================================
+   TÍTULO
+   ========================================== */
+
+h1 {
+  margin: 40px 0 50px;
+
+  color: #f5edef;
+
+  text-align: center;
+
+  font-size: clamp(27px, 5vw, 52px);
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 5px #ff001e,
+    0 0 10px rgba(255, 0, 30, 0.8),
+    0 0 30px rgba(255, 0, 30, 0.6),
+    0 0 60px rgba(150, 0, 20, 0.5);
+
+  animation: tituloSobrenatural 4s ease-in-out infinite;
+}
+
+
+/* ==========================================
+   INPUT
+   ========================================== */
+
+input {
+  width: min(100%, 400px);
+
+  padding: 15px 18px;
+
+  color: #ffffff;
+
+  font-size: 17px;
+
+  background:
+    rgba(8, 2, 4, 0.88);
+
+  border:
+    1px solid rgba(255, 30, 50, 0.45);
+
+  border-radius: 8px;
+
+  outline: none;
+
+  box-shadow:
+    inset 0 0 20px rgba(120, 0, 20, 0.15),
+    0 0 10px rgba(255, 0, 30, 0.1);
+
+  transition:
+    border 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+
+input::placeholder {
+  color: #88777a;
+}
+
+input:focus {
+  border-color: #ff2638;
+
+  transform: scale(1.02);
+
+  box-shadow:
+    0 0 8px rgba(255, 0, 30, 0.8),
+    0 0 25px rgba(255, 0, 30, 0.35),
+    inset 0 0 15px rgba(160, 0, 20, 0.2);
+}
+
+
+/* ==========================================
+   BOTÃO
+   ========================================== */
+
+button {
+  margin-top: 15px !important;
+  margin-left: 0 !important;
+
+  padding: 12px 30px;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #710817,
+      #330309
+    );
+
+  border:
+    1px solid #c31327;
+
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 10px rgba(255, 0, 30, 0.25),
+    inset 0 0 10px rgba(255, 0, 30, 0.1);
+
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s,
+    background 0.3s;
+}
+
+button:hover {
+  transform:
+    translateY(-3px)
+    scale(1.04);
+
+  background:
+    linear-gradient(
+      180deg,
+      #a80b20,
+      #500510
+    );
+
+  box-shadow:
+    0 0 10px rgba(255, 0, 30, 0.8),
+    0 0 25px rgba(255, 0, 30, 0.5),
+    0 0 50px rgba(130, 0, 15, 0.3);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+
+/* ==========================================
+   LINHA
+   ========================================== */
+
+hr {
+  width: min(90%, 700px);
+
+  margin: 50px auto 30px;
+
+  border: none;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff2638,
+      transparent
+    );
+
+  box-shadow:
+    0 0 8px #ff001e,
+    0 0 20px rgba(255, 0, 30, 0.5);
+
+  animation: linhaPulsando 4s ease-in-out infinite;
+}
+
+
+/* ==========================================
+   RESULTADOS
+   ========================================== */
+
+h2 {
+  width: min(100%, 550px);
+
+  margin: 7px 0;
+
+  padding: 15px 22px;
+
+  color: #ddd4d6;
+
+  font-size: clamp(17px, 3vw, 22px);
+  font-weight: normal;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(60, 4, 10, 0.5),
+      rgba(8, 2, 4, 0.75),
+      rgba(60, 4, 10, 0.2)
+    );
+
+  border-left:
+    2px solid rgba(255, 30, 50, 0.5);
+
+  border-radius: 5px;
+
+  box-shadow:
+    0 0 15px rgba(120, 0, 15, 0.1);
+
+  text-shadow:
+    0 0 8px rgba(255, 0, 30, 0.15);
+
+  transition:
+    transform 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+h2:hover {
+  transform: translateX(6px);
+
+  border-left-color: #ff2638;
+
+  box-shadow:
+    -5px 0 20px rgba(255, 0, 30, 0.15);
+}
+
+
+/* ==========================================
+   ESPOROS
+   ========================================== */
+
+.upside-down-particles {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 999;
+}
+
+
+/* Cada span é um esporo */
+
+.upside-down-particles span {
+  position: absolute;
+
+  bottom: -30px;
+
+  width: 5px;
+  height: 5px;
+
+  display: block;
+
+  background: #e7e2d8;
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  box-shadow:
+    0 0 4px #ffffff,
+    0 0 8px rgba(255, 255, 255, 0.7);
+
+  animation:
+    esporoSubindo 12s linear infinite;
+}
+
+
+/* ==========================================
+   POSIÇÕES INDIVIDUAIS DOS ESPOROS
+   ========================================== */
+
+.upside-down-particles span:nth-child(1) {
+  left: 3%;
+  animation-delay: -2s;
+  animation-duration: 12s;
+}
+
+.upside-down-particles span:nth-child(2) {
+  left: 10%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -6s;
+  animation-duration: 17s;
+}
+
+.upside-down-particles span:nth-child(3) {
+  left: 17%;
+  animation-delay: -9s;
+  animation-duration: 14s;
+}
+
+.upside-down-particles span:nth-child(4) {
+  left: 24%;
+  width: 7px;
+  height: 7px;
+  animation-delay: -4s;
+  animation-duration: 19s;
+}
+
+.upside-down-particles span:nth-child(5) {
+  left: 30%;
+  animation-delay: -12s;
+  animation-duration: 15s;
+}
+
+.upside-down-particles span:nth-child(6) {
+  left: 37%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -3s;
+  animation-duration: 20s;
+}
+
+.upside-down-particles span:nth-child(7) {
+  left: 43%;
+  animation-delay: -8s;
+  animation-duration: 13s;
+}
+
+.upside-down-particles span:nth-child(8) {
+  left: 49%;
+  width: 6px;
+  height: 6px;
+  animation-delay: -14s;
+  animation-duration: 18s;
+}
+
+.upside-down-particles span:nth-child(9) {
+  left: 55%;
+  animation-delay: -5s;
+  animation-duration: 16s;
+}
+
+.upside-down-particles span:nth-child(10) {
+  left: 61%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -10s;
+  animation-duration: 21s;
+}
+
+.upside-down-particles span:nth-child(11) {
+  left: 67%;
+  animation-delay: -1s;
+  animation-duration: 14s;
+}
+
+.upside-down-particles span:nth-child(12) {
+  left: 73%;
+  width: 7px;
+  height: 7px;
+  animation-delay: -7s;
+  animation-duration: 19s;
+}
+
+.upside-down-particles span:nth-child(13) {
+  left: 79%;
+  animation-delay: -13s;
+  animation-duration: 17s;
+}
+
+.upside-down-particles span:nth-child(14) {
+  left: 84%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -4s;
+  animation-duration: 22s;
+}
+
+.upside-down-particles span:nth-child(15) {
+  left: 89%;
+  animation-delay: -11s;
+  animation-duration: 15s;
+}
+
+.upside-down-particles span:nth-child(16) {
+  left: 93%;
+  width: 6px;
+  height: 6px;
+  animation-delay: -6s;
+  animation-duration: 18s;
+}
+
+.upside-down-particles span:nth-child(17) {
+  left: 96%;
+  animation-delay: -9s;
+  animation-duration: 20s;
+}
+
+.upside-down-particles span:nth-child(18) {
+  left: 52%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -16s;
+  animation-duration: 23s;
+}
+
+
+/* ==========================================
+   ANIMAÇÕES
+   ========================================== */
+
+@keyframes nevoa {
+  0% {
+    transform:
+      translate(-3%, -2%)
+      scale(1);
+
+    opacity: 0.55;
+  }
+
+  50% {
+    transform:
+      translate(3%, 1%)
+      scale(1.1);
+
+    opacity: 0.85;
+  }
+
+  100% {
+    transform:
+      translate(-1%, 4%)
+      scale(1.18);
+
+    opacity: 0.65;
   }
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
+@keyframes tituloSobrenatural {
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px #ff001e,
+      0 0 15px rgba(255, 0, 30, 0.5);
   }
 
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
+  50% {
+    text-shadow:
+      0 0 8px #ff2638,
+      0 0 20px #ff001e,
+      0 0 45px rgba(255, 0, 30, 0.6),
+      0 0 80px rgba(150, 0, 20, 0.4);
   }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
 
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+@keyframes linhaPulsando {
+  0%,
+  100% {
+    opacity: 0.35;
+
+    box-shadow:
+      0 0 3px #ff001e;
+  }
+
+  50% {
+    opacity: 1;
+
+    box-shadow:
+      0 0 10px #ff001e,
+      0 0 30px rgba(255, 0, 30, 0.8);
   }
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
 
-  .logo {
-    height: 18px;
+/* Movimento dos esporos */
+
+@keyframes esporoSubindo {
+  0% {
+    transform:
+      translate3d(0, 10vh, 0)
+      scale(0.3);
+
+    opacity: 0;
   }
 
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
+  10% {
+    opacity: 0.8;
   }
 
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+  25% {
+    transform:
+      translate3d(25px, -25vh, 0)
+      scale(0.7);
+  }
 
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
+  50% {
+    transform:
+      translate3d(-20px, -55vh, 0)
+      scale(1);
+  }
 
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
+  75% {
+    transform:
+      translate3d(35px, -85vh, 0)
+      scale(0.8);
+  }
+
+  90% {
+    opacity: 0.65;
+  }
+
+  100% {
+    transform:
+      translate3d(-10px, -120vh, 0)
+      scale(0.4);
+
+    opacity: 0;
   }
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+
+/* ==========================================
+   SCROLLBAR
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 9px;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
+::-webkit-scrollbar-track {
+  background: #020203;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(
+      #3c040a,
+      #a70b1c,
+      #3c040a
+    );
+
+  border: 2px solid #020203;
+
+  border-radius: 10px;
+}
+
+
+/* ==========================================
+   SELEÇÃO DE TEXTO
+   ========================================== */
+
+::selection {
+  background: #a30b1c;
+  color: white;
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 600px) {
+
+  #root > div {
+    padding:
+      30px 18px !important;
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  h1 {
+    margin-top: 25px;
+    margin-bottom: 35px;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+
+  input {
+    width: 100%;
   }
+
+  button {
+    width: 100%;
+
+    margin-top: 12px !important;
+  }
+
+  h2 {
+    width: 100%;
+  }
+
+}
+
+
+/* ==========================================
+   ACESSIBILIDADE
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  
+
 }
