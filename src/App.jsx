@@ -9,7 +9,7 @@ import { useState } from "react";
 function App() {
 
   //Responsável por armazenar a cidade digitada
-  const [cidade, setCidade] = useState(" ");
+  const [cidade, setCidade] = useState("");
 
   //Responsável por armazenar a temperatura digitada
   const [temperatura, setTemperatura] = useState(" ");
@@ -53,6 +53,38 @@ function App() {
 
       //Atualiza a umidade
       setUmidade(dados.main.humidity + "%");
+
+      //Conteúdo aula 29/09. Enviando dados do React para uma API própria utilizando o método Post
+
+      //Faz a requisição para a API de historico criada por você
+      await fetch ("http://localhost:3000/historico", {
+
+        //Define o método HTPP utilizado
+        method: "POST",
+
+        //Informa que os dados enviados estarão em formato JSON
+        headers: {
+         "Content-Type": "application/json"
+        },
+
+        //Converte o objeto JavaScript para JSON
+        body: JSON.stringify({
+
+          //Envia o nome da cidade consultada
+          cidade: cidade,
+
+          //Envia a temperatura retornada pela API OpenWeathrMap
+          temperatura: dados.main.temp + "°C",
+
+          //Envia a descrição do clima
+          //O índice [0] acessa o primeiro elemento de array "weather"
+          //Um array é uma lista de valores armazenados em sequência e acessados por posição
+          clima: dados.weather[0].description,
+
+          //Envia a umidade do ar
+          umidade: dados.main.humidity + "%"
+        })  
+      }); //Fim da primeira aula
 
       } catch (erro) {
 
